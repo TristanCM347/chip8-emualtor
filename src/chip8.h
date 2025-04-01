@@ -11,6 +11,8 @@ public:
 
     ~Chip8();
 
+    bool load(const char *file_path);
+
 private:
     uint16_t stack[16];
     uint8_t sp;

@@ -70,8 +70,10 @@ int main(int argc, char **argv) {
         exit(1);
     }
 
+    if (!chip8.load(argv[1])) {
+        return 1;
+    }
 
-    
 
     return 0;
 }

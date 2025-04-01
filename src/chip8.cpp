@@ -51,3 +51,7 @@ void Chip8::initialise() {
     delay_timer = 0;
     sound_timer = 0;
 }
+
+bool Chip8::load(const char *file_path) {
+    return false;
+}
