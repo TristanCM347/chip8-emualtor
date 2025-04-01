@@ -3,6 +3,25 @@
 
 #include "SDL2/SDL.h"
 
+uint8_t keymap[16] = {
+    SDLK_x,
+    SDLK_1,
+    SDLK_2,
+    SDLK_3,
+    SDLK_q,
+    SDLK_w,
+    SDLK_e,
+    SDLK_a,
+    SDLK_s,
+    SDLK_d,
+    SDLK_z,
+    SDLK_c,
+    SDLK_4,
+    SDLK_r,
+    SDLK_f,
+    SDLK_v,
+};
+
 int main(int argc, char **argv) {
     if (argc <= 1)
     {
@@ -50,6 +69,9 @@ int main(int argc, char **argv) {
         std::cerr << "Error in setting up texture " << SDL_GetError() << std::endl;
         exit(1);
     }
+
+
+    
 
     return 0;
 }
