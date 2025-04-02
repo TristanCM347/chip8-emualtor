@@ -1,9 +1,11 @@
 #include <iostream>
 #include "chip8.h"
+#include <chrono>
+#include <thread>
 
 #include "SDL2/SDL.h"
 
-uint8_t keymap[16] = {
+std::array<uint8_t, 16> keymap = {
     SDLK_x,
     SDLK_1,
     SDLK_2,
@@ -20,9 +22,9 @@ uint8_t keymap[16] = {
     SDLK_r,
     SDLK_f,
     SDLK_v,
-};
+  };
 
-int main(int argc, char **argv) {
+int main(int argc, char *argv[]) {
     if (argc <= 1)
     {
         std::cerr << "Must give path to ROM as arguement\n";
@@ -72,6 +74,14 @@ int main(int argc, char **argv) {
 
     if (!chip8.load(argv[1])) {
         return 1;
+    }
+
+    // Emulation loop
+    while (true) {
+        chip8.cycle();
+
+
+        std::this_thread::sleep_for(std::chrono::microseconds(1200));
     }
 
 
