@@ -58,32 +58,37 @@ void Chip8::initialise() {
 }
 
 bool Chip8::load(const char *file_path) {
-    // initialise();
+    initialise();
 
-    // std::ifstream rom(file_path, std::ios::binary | std::ios::ate);
-    // if (!rom.is_open()) {
-    //     std::cerr << "Failed to open ROM" << std::endl;
-    //     return false;
-    // }
+    if (file_path == nullptr) {
+        std::cerr << "Invalid file path" << std::endl;
+        return false;
+    }
 
-    // std::streamsize rom_size = rom.tellg();
-    // rom.seekg(0, std::ios::beg);
+    std::ifstream rom(file_path, std::ios::binary | std::ios::ate);
+    if (!rom.is_open()) {
+        std::cerr << "Failed to open ROM" << std::endl;
+        return false;
+    }
 
-    // std::vector<uint8_t> rom_buffer(rom_size);
-    // if (!rom.read(reinterpret_cast<char*>(rom_buffer.data()), rom_size)) {
-    //     std::cerr << "Failed to read ROM" << std::endl;
-    //     return false;
-    // }
+    std::streamsize rom_size = rom.tellg();
+    rom.seekg(0, std::ios::beg);
 
-    // constexpr size_t load_address = 0x200;
-    // constexpr size_t max_rom_size = 4096 - load_address;
+    std::vector<uint8_t> rom_buffer(rom_size);
+    if (!rom.read(reinterpret_cast<char*>(rom_buffer.data()), rom_size)) {
+        std::cerr << "Failed to read ROM" << std::endl;
+        return false;
+    }
 
-    // if (rom_size > max_rom_size) {
-    //     std::cerr << "ROM too large to fit in memory" << std::endl;
-    //     return false;
-    // }
+    constexpr size_t load_address = 0x200;
+    constexpr size_t max_rom_size = 4096 - load_address;
 
-    // std::copy(rom_buffer.begin(), rom_buffer.end(), memory + load_address);
+    if (rom_size > max_rom_size) {
+        std::cerr << "ROM too large to fit in memory" << std::endl;
+        return false;
+    }
+
+    std::copy(rom_buffer.begin(), rom_buffer.end(), memory.begin() + load_address);
 
     return true;
 }
